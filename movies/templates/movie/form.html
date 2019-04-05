@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Movies{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% if saved %}
+<div class="card ma-2 pa-2">
+    <div class="card-body">Data Saved Successfully</div>
+</div>
+{% endif %}
+{% if error %}
+<div class="card ma-2 pa-2">
+    <div class="card-body" style="color:red;">Error - {{error}}</div>
+</div>
+{% endif %}
+<div class="ma-2">
+<h2>{% if edit %}Edit{% else %} New{% endif %}</h2>
+    {% crispy form %}
+</div>
+{% endblock %}

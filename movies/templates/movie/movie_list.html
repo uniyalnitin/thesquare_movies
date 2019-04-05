@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Movies{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+    {% if genre_filter %}
+            <div class="col-md-12">Movies of Genre- {{ genre_filter }}</div>
+    {% endif %}
+    {% if actor_filter %}
+            <div class="col-md-12">Movies of Actor- {{ actor_filter }}</div>
+    {% endif %}
+    {% if director_filter %}
+            <div class="col-md-12">Movies of Director- {{ director_filter }}</div>
+    {% endif %}
+    {% if movies %}
+    <ul class="list-group list-group-flush">
+    {% for movie in movies %}
+        <li class="list-group-item">
+            <a href="{% url 'movies:movie_detail' movie.id %}">{{ movie.title|upper }}</a><br>
+        </li>
+    {% endfor %}
+    </ul>
+    {% else %}
+    <h1>No Movies Found</h1>
+    {% endif %}
+    </div>
+    </div>
+    </div>
+    </div>
+    <br>
+
+    <div class="row d-flex justify-content-center ma-2 pa-2">
+        <div class="col">
+            <div class="card ma-2 pa-2">
+            {% include 'pagination.html' with data=movies page_size=page_size %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

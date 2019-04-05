@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>{% block title %}{% endblock %}</title>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <!-- Bootstrap core CSS -->
+  {% load static %}
+  <link href="{% static 'movie/css/bootstrap.min.css' %}" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="{% static 'movie/css/mdb.min.css' %}" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark primary-color">
+
+                    <!-- Navbar brand -->
+            <a class="navbar-brand" href="#">Thesqua</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+    aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Collapsible content -->
+  <div class="collapse navbar-collapse" id="basicExampleNav">
+
+    <!-- Links -->
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item mx-2">
+        <a class="nav-link btn btn-outline-white" href="{% url 'movies:movie_list' %}">Movies
+        </a>
+      </li>
+      <li class="nav-item mx-2">
+        <a class="nav-link btn btn-outline-white" href="{% url 'movies:movie_create' %}">Add New Movie</a>
+      </li>
+      <li class="nav-item mx-2">
+        <a class="nav-link btn btn-outline-white" href="{% url 'movies:fetch_movie' %}">API Fetch Movie</a>
+      </li>
+      <li class="nav-item mx-2">
+        <a class="nav-link btn btn-outline-white" href="{% url 'movies:actor_list' %}">Actors</a>
+    </li>
+    <li class="nav-item mx-2">
+        <a class="nav-link btn btn-outline-white" href="{% url 'movies:director_list' %}">Directors</a>
+    </li>
+
+
+    </ul>
+    <!-- Links -->
+
+            
+            <!-- Collapse button -->
+            <form class="form-inline my-2 my-lg-0 ml-auto" action="{% url 'movies:full_search' %}">
+                <select class="form-control mr-2"name="options">
+                    <option name="movies" value="movies" selected>Movies</option>
+                    <option name="actors" value="actors">Actors</option>
+                    <option name="directors" value="directors">Directors</option>
+                    <option name="genre" value="genre">Genres</option>
+                </select>
+                <input class="form-control" type="search" name="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-white btn-md my-2 my-sm-0 ml-3" type="submit">Search</button>
+            </form>
+    </div>
+                  
+        </nav>
+                  
+    </header>
+
+    <main>
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+                    {{ message }}
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        <!-- Start your project here-->
+        <div class="card">
+            <div class="card-body">
+        {% block content %}{% endblock %}
+        <!-- /Start your project here-->  
+        </div>
+        </div>      
+    </main>
+
+    <footer class="page-footer font-small blue">
+
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2018 Copyright:
+        <a href="#">Thesqua</a>
+    </div>
+    <!-- Copyright -->
+    
+    </footer>
+  <!-- SCRIPTS -->
+  <!-- JQuery -->
+  {% load static %}
+  <script type="text/javascript" src="{% static 'movie/js/jquery-3.3.1.min.js' %}"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="{% static 'movie/js/popper.min.js' %}"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="{% static 'movie/js/bootstrap.min.js' %}"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="{% static 'movie/js/mdb.min.js' %}"></script>
+</body>
+
+</html>

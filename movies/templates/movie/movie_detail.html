@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Movies{% endblock %}
+
+{% block content %}
+<div class="row pa-2 ma-2">
+    <div><h4>Genre -{% for genre in movie.get_genre %}<a href="{% url 'movies:movie_list' %}?genre={{genre}}">{{ genre }}</a>, {% endfor %}</h4></div>
+</div>
+<br>
+<div class="row d-flex justify-content-center">
+
+    {% if movie %}
+    <div class="col-lg-6">
+            <div class="card">
+
+                <!-- Card image -->
+                {% if movie.poster %}
+                <div class="view overlay">
+                    <div class="d-flex justify-content-center">
+                        <img class="card-img-top" style="height: 300px;width: 650px;" src="{{ movie.poster.url }}" alt="Card image cap">
+                        <div class="mask rgba-white-slight"></div>
+                    </div>
+                </div>
+                {% endif %}
+                <!-- Card content -->
+                <div class="card-body text-center">
+                
+                    <!-- Title -->
+                    <h4 class="card-title"><a href="https://www.imdb.com/title/{{ movie.imdb_id }}" target="_blank">{{movie.title}}</a></h4>
+                    <h3 class="card-title">rating-{{movie.rating}}</h3>
+                    <h3 class="card-title">year- {{movie.year}}</h3>
+                    <!-- Text -->
+                    <p class="card-text">{{ movie.plot }}</p>
+                    <br>
+                    <p class="card-text">Actors -{% for actor in movie.get_actors %}<a href="{% url 'movies:movie_list' %}?actors={{actor}}">{{ actor }}</a>, {% endfor %}</p>
+                    <p class="card-text">Directors -{% for director in movie.get_directors %}<a href="{% url 'movies:movie_list' %}?directors={{director}}">{{ director }}</a>, {% endfor %}</p>
+                    <!-- Button -->
+                    <div class="d-flex justify-content-center">
+                    <div>
+                        <a href="https://www.imdb.com/title/{{ movie.imdb_id }}" target="_blank" class="btn btn-primary">Visit Site</a>
+                    </div>
+                    <div>
+                        <a href="{% url 'movies:movie_edit' movie.id %}" class="btn btn-warning">Edit</a>
+                    </div>
+                    <div>
+                        <a href="{% url 'movies:movie_delete' movie.id %}" class="btn btn-danger">Delete</a>
+                    </div>
+                </div>
+                
+                </div>
+                <!-- Card -->
+    </div>
+    {% else %}
+        <p>No Movies Found</p>
+    {% endif %}
+</div>
+{% endblock %}

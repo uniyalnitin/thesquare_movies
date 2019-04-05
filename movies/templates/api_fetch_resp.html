@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Movies_Fetch{% endblock %}
+
+{% block content %}
+    
+    {% if multiple %}
+    <ul>
+    {% for movie in movies %}
+    <li>
+        <p>{{ movie }}</p>
+        <p>{{ movie.Title }}</p>
+        <p>{{ movie.imdbID }}</p>
+    </li>
+    <hr>
+    {% endfor %}
+    </ul>
+    {% endif %}
+    <p>{{ movies.Title }}</p>
+    <img style="width: 100px;height: 100px;" src="{{ movies.Poster }}">
+    <a class="btn btn-success" href="{% url 'movies:add_movie' 'true' %}">Add</a>
+    {% include 'pagination.html' with data=data page_size=page_size %}
+{% endblock %}
