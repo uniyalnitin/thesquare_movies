@@ -2,5 +2,4 @@ app.yaml
 development.db
 main.py
 .gcloudignore
-*migrations
 __pycache__/
